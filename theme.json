@@ -1,15 +1,15 @@
-{
+﻿{
   "id": "floating-findbar",
-  "homepage": "https://github.com/qumeqa/floating-findbar",
+  "homepage": "https://github.com/tonys183/floating-findbar",
   "author": "qumeqa",
   "name": "Floating Findbar",
-  "description": "A floating findbar for Zen",
-  "version": "1.0",
+  "description": "A floating findbar for Zen (fork)",
+  "version": "1.0.0",
   "style": {
     "chrome": "userChrome.css"
   },
-  "readme": "https://raw.githubusercontent.com/qumeqa/floating-findbar/refs/heads/main/README.md",
-  "image": "https://raw.githubusercontent.com/qumeqa/floating-findbar/refs/heads/main/cover.png",
+  "readme": "https://raw.githubusercontent.com/tonys183/floating-findbar/refs/heads/main/README.md",
+  "image": "https://raw.githubusercontent.com/tonys183/floating-findbar/refs/heads/main/cover.png",
   "tags": [
     "Float",
     "Floating",

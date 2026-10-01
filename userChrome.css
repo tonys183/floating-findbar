@@ -1,52 +1,57 @@
-.browserStack {
+﻿.browserStack {
     position: relative !important;
 }
 
+findbar[hidden="true"],
+findbar[hidden] {
+    display: -moz-box !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) translateY(-10px) !important;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s 0.25s !important;
+}
+
 findbar {
-    position: absolute !important;
+    display: -moz-box !important;
+    position: fixed !important;
     top: 20px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: max-content !important;
     min-width: 520px !important;
-    contain: initial !important;
-    border-radius: 12px !important;
+    border-radius: 14px !important;
     border: none !important;
     background: var(--arrowpanel-background) !important;
-    padding: 6px !important;
-    box-shadow: var(--box-shadow-level-3) !important;
+    padding: 5px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35) !important;
     opacity: 1 !important;
-    transition: transform 0.3s ease, opacity 0.3s ease !important;
-}
-
-@starting-style {
-    findbar {
-        transform: translateX(-50%) translateY(-6px) !important;
-        opacity: 0 !important;
-    }
-}
-
-findbar[hidden] {
-    transform: translateX(-50%) translateY(-6px) !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s 0.3s !important;
-    pointer-events: none !important;
+    visibility: visible !important;
+    z-index: 2147483647 !important;
+    transition: opacity 0.25s ease, transform 0.25s ease !important;
+    margin: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
 .findbar-container {
     height: max-content !important;
-    width: 100% !important;
+    -moz-box-flex: 1 !important;
     margin: 0 !important;
+    background: transparent !important;
 }
 
 .findbar-textbox {
-    border-radius: 6px !important;
-    padding: 8px 12px !important;
+    border-radius: 9px !important;
+    padding: 7px 14px !important;
+    width: 100px !important;
+    -moz-box-flex: 0 !important;
     box-shadow: none !important;
     border: none !important;
     outline: none !important;
     background: var(--toolbar-field-focus-background-color) !important;
+    font-size: 13px !important;
+    min-height: 0 !important;
 }
 
 .findbar-find-previous,
@@ -54,10 +59,19 @@ findbar[hidden] {
 .findbar-closebutton {
     position: relative !important;
     padding: 0 !important;
-    width: 38px !important;
-    height: 38px !important;
-    border-radius: 6px !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 8px !important;
     margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.findbar-find-previous:hover,
+.findbar-find-next:hover,
+.findbar-closebutton:hover {
+    background: rgba(255,255,255,0.1) !important;
 }
 
 .findbar-find-previous .toolbarbutton-icon,
@@ -70,11 +84,27 @@ findbar[hidden] {
 }
 
 .findbar-find-previous {
-    margin-left: 6px !important;
+    margin-left: 12px !important;
+}
+
+.findbar-find-next {
+    margin-left: 10px !important;
+}
+
+.findbar-closebutton {
+    margin-left: 4px !important;
 }
 
 .found-matches {
-    margin: 0 6px !important;
+    margin: 0 10px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+    opacity: 1 !important;
+    display: -moz-box !important;
+}
+
+findbar toolbarbutton:not(.findbar-find-previous):not(.findbar-find-next):not(.findbar-closebutton) {
+    display: none !important;
 }
 
 .findbar-highlight,
@@ -84,3 +114,4 @@ findbar[hidden] {
 .findbar-find-status {
     display: none !important;
 }
+
