@@ -17,19 +17,21 @@ findbar {
     box-shadow: var(--box-shadow-level-3) !important;
     opacity: 1 !important;
     transition: transform 0.3s ease, opacity 0.3s ease !important;
-    
-    @starting-style {
+}
+
+@starting-style {
+    findbar {
         transform: translateX(-50%) translateY(-6px) !important;
         opacity: 0 !important;
     }
-    
-    &[hidden] {
-        transform: translateX(-50%) translateY(-6px) !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s 0.3s !important;
-        pointer-events: none !important;
-    }
+}
+
+findbar[hidden] {
+    transform: translateX(-50%) translateY(-6px) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s 0.3s !important;
+    pointer-events: none !important;
 }
 
 .findbar-container {
@@ -56,12 +58,15 @@ findbar {
     height: 38px !important;
     border-radius: 6px !important;
     margin: 0 !important;
-    .toolbarbutton-icon {
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-    }
+}
+
+.findbar-find-previous .toolbarbutton-icon,
+.findbar-find-next .toolbarbutton-icon,
+.findbar-closebutton .toolbarbutton-icon {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
 }
 
 .findbar-find-previous {
