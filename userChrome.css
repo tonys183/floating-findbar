@@ -4,7 +4,7 @@
 
 findbar[hidden="true"],
 findbar[hidden] {
-    display: -moz-box !important;
+    display: flex !important;
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
@@ -13,9 +13,7 @@ findbar[hidden] {
 }
 
 findbar {
-    --floating-findbar-options-width: 230px;
-    --floating-findbar-option-height: 36px;
-    display: -moz-box !important;
+    display: flex !important;
     position: fixed !important;
     top: 20px !important;
     left: 50% !important;
@@ -38,6 +36,11 @@ findbar {
 }
 
 .findbar-container {
+    display: grid !important;
+    grid-template-columns: repeat(4, max-content) !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex: 1 !important;
     height: max-content !important;
     -moz-box-flex: 1 !important;
     margin: 0 !important;
@@ -96,6 +99,7 @@ findbar {
 }
 
 .findbar-closebutton {
+    align-self: start !important;
     margin-left: 4px !important;
 }
 
@@ -107,103 +111,100 @@ findbar {
     display: -moz-box !important;
 }
 
-findbar toolbarbutton:not(.findbar-find-previous):not(.findbar-find-next):not(.findbar-closebutton) {
+findbar toolbarbutton:not(.findbar-find-previous):not(.findbar-find-next):not(.findbar-closebutton),
+findbar .find-status-icon,
+findbar .findbar-find-status {
     display: none !important;
 }
 
-findbar .findbar-find-status:not([hidden]) {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex: 0 0 32px !important;
+findbar [anonid="findbar-textbox-wrapper"] {
+    grid-column: 1 / 3 !important;
+    grid-row: 1 !important;
+}
+
+findbar .found-matches {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+}
+
+findbar .floating-findbar-settings {
+    grid-column: 4 !important;
+    grid-row: 1 !important;
+    justify-self: end !important;
+    appearance: none !important;
     width: 32px !important;
     height: 32px !important;
-    min-width: 32px !important;
     margin: 0 !important;
     padding: 0 !important;
+    border: none !important;
     border-radius: 8px !important;
-    font-size: 0 !important;
-    line-height: 0 !important;
-    overflow: hidden !important;
-    cursor: default !important;
-}
-
-findbar .findbar-find-status::before {
-    content: "";
-    flex: 0 0 16px;
-    width: 16px;
-    height: 16px;
-    background: currentColor;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 3-.6 2.4-2 .9L4.2 5.5 2 9.3l1.8 1.6v2.2L2 14.7l2.2 3.8 2.2-.8 2 .9L9 21h6l.6-2.4 2-.9 2.2.8 2.2-3.8-1.8-1.6v-2.2L22 9.3l-2.2-3.8-2.2.8-2-.9L15 3Z'/%3E%3Ccircle cx='12' cy='12' r='3.3'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
-}
-
-findbar .findbar-container > checkbox:is(
-    .findbar-highlight,
-    .findbar-case-sensitive,
-    .findbar-match-diacritics,
-    .findbar-entire-word
-):not([hidden]) {
-    display: flex !important;
-    align-items: center !important;
-    position: absolute !important;
-    inset-inline-end: 41px !important;
-    top: calc(100% - 5px + var(--floating-findbar-option-index) * var(--floating-findbar-option-height)) !important;
-    box-sizing: border-box !important;
-    width: var(--floating-findbar-options-width) !important;
-    height: var(--floating-findbar-option-height) !important;
-    margin: 0 !important;
-    padding: 0 14px !important;
-    background: var(--arrowpanel-background) !important;
+    background: transparent !important;
     color: inherit !important;
-    font-size: 13px !important;
-    white-space: nowrap !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    z-index: 1 !important;
+    font: 20px / 1 "Segoe UI Symbol", sans-serif !important;
+    cursor: pointer !important;
 }
 
-findbar .findbar-highlight {
-    --floating-findbar-option-index: 0;
-    border-radius: 10px 10px 0 0 !important;
-}
-
-findbar .findbar-case-sensitive {
-    --floating-findbar-option-index: 1;
-}
-
-findbar .findbar-match-diacritics {
-    --floating-findbar-option-index: 2;
-}
-
-findbar .findbar-entire-word {
-    --floating-findbar-option-index: 3;
-    border-radius: 0 0 10px 10px !important;
-}
-
-findbar:has(
-    .findbar-find-status:hover,
-    .findbar-container > checkbox:hover,
-    .findbar-container > checkbox:focus-within
-) .findbar-container > checkbox:not([hidden]) {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
-
-findbar:has(.findbar-container > checkbox[checked="true"]) .findbar-find-status,
-findbar .findbar-find-status:hover {
+findbar .floating-findbar-settings:hover,
+findbar .floating-findbar-settings[aria-expanded="true"] {
     background: color-mix(in srgb, currentColor 10%, transparent) !important;
 }
 
-findbar .findbar-container > checkbox:hover {
-    background: color-mix(in srgb, var(--arrowpanel-background) 90%, currentColor) !important;
+findbar .findbar-container > checkbox {
+    display: none !important;
 }
 
+findbar[data-options-open] .findbar-container {
+    row-gap: 8px !important;
+}
+
+findbar[data-options-open]::after {
+    content: "";
+    position: absolute;
+    top: 41px;
+    inset-inline: 0;
+    border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+    pointer-events: none;
+}
+
+findbar[data-options-open] .findbar-container > checkbox:not([hidden]) {
+    display: flex !important;
+    align-items: center !important;
+    grid-row: 2 !important;
+    min-height: 30px !important;
+    margin: 0 !important;
+    padding: 0 4px !important;
+    border-radius: 6px !important;
+    color: inherit !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+}
+
+findbar .findbar-highlight {
+    grid-column: 1 !important;
+}
+
+findbar .findbar-case-sensitive {
+    grid-column: 2 !important;
+}
+
+findbar .findbar-match-diacritics {
+    grid-column: 3 !important;
+}
+
+findbar .findbar-entire-word {
+    grid-column: 4 !important;
+}
+
+findbar .findbar-container > checkbox:hover {
+    background: color-mix(in srgb, currentColor 8%, transparent) !important;
+}
+
+findbar .floating-findbar-settings:focus-visible,
 findbar .findbar-container > checkbox:focus-visible {
     outline: 2px solid var(--focus-outline-color, Highlight) !important;
     outline-offset: -3px !important;
 }
 
-findbar .findbar-container > checkbox[hidden],
-findbar .findbar-find-status[hidden] {
+findbar .floating-findbar-settings[hidden] {
     display: none !important;
 }

@@ -1,4 +1,4 @@
-﻿{
+{
   "id": "floating-findbar",
   "homepage": "https://github.com/tonys183/floating-findbar",
   "author": "qumeqa",
@@ -7,6 +7,13 @@
   "version": "1.0.1",
   "style": {
     "chrome": "userChrome.css"
+  },
+  "scripts": {
+    "floating-findbar.uc.js": {
+      "name": "Floating Findbar Settings",
+      "description": "Toggle native search options with a click",
+      "include": ["chrome://browser/content/browser.xhtml"]
+    }
   },
   "readme": "https://raw.githubusercontent.com/tonys183/floating-findbar/refs/heads/main/README.md",
   "image": "https://raw.githubusercontent.com/tonys183/floating-findbar/refs/heads/main/cover.png",
