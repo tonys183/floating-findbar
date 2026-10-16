@@ -21,7 +21,7 @@ findbar {
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: max-content !important;
-    min-width: 520px !important;
+    min-width: 500px !important;
     border-radius: 14px !important;
     border: none !important;
     background: var(--arrowpanel-background) !important;
@@ -104,11 +104,12 @@ findbar {
     margin-left: 4px !important;
 }
 
-findbar .found-matches {
-    flex: 0 0 120px !important;
-    width: 120px !important;
-    min-width: 120px !important;
-    max-width: 120px !important;
+findbar .found-matches,
+findbar .floating-findbar-zero-matches {
+    flex: 0 0 100px !important;
+    width: 100px !important;
+    min-width: 100px !important;
+    max-width: 100px !important;
     margin: 0 10px !important;
     font-size: 13px !important;
     white-space: nowrap !important;
@@ -119,15 +120,13 @@ findbar .found-matches {
     display: block !important;
 }
 
-findbar .found-matches[hidden] {
-    display: block !important;
-    visibility: visible !important;
-    font-size: 0 !important;
+findbar .found-matches[hidden],
+findbar .floating-findbar-zero-matches {
+    display: none !important;
 }
 
-findbar .found-matches[hidden]::before {
-    content: "0 matches";
-    font-size: 13px;
+findbar .found-matches[hidden] + .floating-findbar-zero-matches:not([hidden]) {
+    display: block !important;
 }
 
 findbar toolbarbutton:not(.findbar-find-previous):not(.findbar-find-next):not(.findbar-closebutton),

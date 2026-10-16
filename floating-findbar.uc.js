@@ -5,6 +5,7 @@
     const { signal } = controller;
     const buttons = new Map();
     const panels = new Map();
+    const counters = new Map();
     let activeBar = null;
 
     const close = () => {
@@ -26,6 +27,15 @@
         button.setAttribute("aria-label", "Search options");
         button.setAttribute("aria-expanded", "false");
         button.hidden = !!bar.querySelector(".findbar-textbox.minimal");
+        const matches = container.querySelector(".found-matches");
+        if (matches) {
+            const zeroMatches = document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+            zeroMatches.className = "floating-findbar-zero-matches";
+            zeroMatches.textContent = "0 matches";
+            zeroMatches.hidden = button.hidden;
+            container.insertBefore(zeroMatches, matches.nextSibling);
+            counters.set(bar, zeroMatches);
+        }
         const panel = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
         panel.className = "floating-findbar-options";
         panel.hidden = button.hidden;
@@ -84,6 +94,7 @@
         close();
         controller.abort();
         for (const button of buttons.values()) button.remove();
+        for (const counter of counters.values()) counter.remove();
         for (const { panel, positions } of panels.values()) {
             for (const { node, next } of [...positions].reverse()) {
                 panel.parentNode.insertBefore(node, next);
@@ -92,6 +103,7 @@
         }
         buttons.clear();
         panels.clear();
+        counters.clear();
         delete window.floatingFindbarSettings;
     };
 
