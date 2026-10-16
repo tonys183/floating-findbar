@@ -4,7 +4,7 @@
   "author": "qumeqa",
   "name": "Floating Findbar",
   "description": "A floating findbar for Zen (fork)",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "style": {
     "chrome": "userChrome.css"
   },
