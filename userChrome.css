@@ -104,12 +104,30 @@ findbar {
     margin-left: 4px !important;
 }
 
-.found-matches {
+findbar .found-matches {
+    flex: 0 0 120px !important;
+    width: 120px !important;
+    min-width: 120px !important;
+    max-width: 120px !important;
     margin: 0 10px !important;
     font-size: 13px !important;
     white-space: nowrap !important;
+    text-align: center !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
     opacity: 1 !important;
-    display: -moz-box !important;
+    display: block !important;
+}
+
+findbar .found-matches[hidden] {
+    display: block !important;
+    visibility: visible !important;
+    font-size: 0 !important;
+}
+
+findbar .found-matches[hidden]::before {
+    content: "0 matches";
+    font-size: 13px;
 }
 
 findbar toolbarbutton:not(.findbar-find-previous):not(.findbar-find-next):not(.findbar-closebutton),
