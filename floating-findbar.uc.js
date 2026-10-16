@@ -4,6 +4,7 @@
     const controller = new AbortController();
     const { signal } = controller;
     const buttons = new Map();
+    const panels = new Map();
     let activeBar = null;
 
     const close = () => {
@@ -21,11 +22,18 @@
         const button = document.createElementNS("http://www.w3.org/1999/xhtml", "button");
         button.className = "floating-findbar-settings";
         button.type = "button";
-        button.textContent = "⚙";
         button.title = "Search options";
         button.setAttribute("aria-label", "Search options");
         button.setAttribute("aria-expanded", "false");
         button.hidden = !!bar.querySelector(".findbar-textbox.minimal");
+        const panel = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+        panel.className = "floating-findbar-options";
+        panel.hidden = button.hidden;
+        const positions = [...container.querySelectorAll(":scope > checkbox")]
+            .map(node => ({ node, next: node.nextSibling }));
+        for (const { node } of positions) panel.appendChild(node);
+        const highlight = panel.querySelector(".findbar-highlight");
+        if (highlight) highlight.hidden = false;
         button.addEventListener("click", () => {
             const wasOpen = activeBar === bar;
             close();
@@ -35,8 +43,10 @@
                 button.setAttribute("aria-expanded", "true");
             }
         }, { signal });
+        container.appendChild(panel);
         container.appendChild(button);
         buttons.set(bar, button);
+        panels.set(bar, { panel, positions });
     };
 
     document.addEventListener("findbaropen", event => {
@@ -50,7 +60,7 @@
         if (!activeBar) return;
         const path = event.composedPath();
         if (path.includes(buttons.get(activeBar))) return;
-        if (path.some(node => node.localName === "checkbox" && activeBar.contains(node))) return;
+        if (path.includes(panels.get(activeBar)?.panel)) return;
         close();
     }, { capture: true, mozSystemGroup: true, signal });
 
@@ -74,7 +84,14 @@
         close();
         controller.abort();
         for (const button of buttons.values()) button.remove();
+        for (const { panel, positions } of panels.values()) {
+            for (const { node, next } of [...positions].reverse()) {
+                panel.parentNode.insertBefore(node, next);
+            }
+            panel.remove();
+        }
         buttons.clear();
+        panels.clear();
         delete window.floatingFindbarSettings;
     };
 
